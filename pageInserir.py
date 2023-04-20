@@ -8,9 +8,15 @@ def open_window_1():
     window.geometry("500x500")
 
     # Crie os rótulos e campos de entrada para o código do material, material, local, unidade e saldo
+    def validate_int(input):
+        if input.isdigit():
+            return True
+        else:
+            return False
+
     label_codigo = tk.Label(window, text="Código do material:")
     label_codigo.pack()
-    entry_codigo = tk.Entry(window)
+    entry_codigo = tk.Entry(window, validate="key", vcmd=(window.register(validate_int), "%P"))
     entry_codigo.pack()
 
     label_material = tk.Label(window, text="Material:")
@@ -30,7 +36,7 @@ def open_window_1():
 
     label_saldo = tk.Label(window, text="Saldo:")
     label_saldo.pack()
-    entry_saldo = tk.Entry(window)
+    entry_saldo = tk.Entry(window, validate="key",  vcmd=(window.register(validate_int), "%P"))
     entry_saldo.pack()
 
     # Crie o botão de submissão
@@ -58,15 +64,3 @@ def submit_item(codigo, material, local, unidade, saldo):
         messagebox.showinfo("Inserção bem sucedida", "Item inserido com sucesso!")
     except Exception as e:
         messagebox.showerror("Erro ao inserir", f"Não foi possível inserir o item. Erro: {e}")
-
-
-def open_window_2():
-    window = tk.Toplevel()
-    window.title("Remover")
-    window.geometry("200x100")
-
-    label = tk.Label(window, text="Local de Remover")
-    label.pack()
-
-    button_close = tk.Button(window, text="Fechar", command=window.destroy)
-    button_close.pack()
