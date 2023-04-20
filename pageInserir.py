@@ -52,7 +52,7 @@ def open_window_1():
 
 
 def submit_item(codigo, material, local, unidade, saldo):
-    print(f"Código: {codigo}\nMaterial: {material}\nLocal: {local}\nUnidade: {unidade}\nSaldo: {saldo}")
+    #print(f"Código: {codigo}\nMaterial: {material}\nLocal: {local}\nUnidade: {unidade}\nSaldo: {saldo}")
     try:
         conexao = connect_database()
         cursor = conexao.cursor()

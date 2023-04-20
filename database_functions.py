@@ -13,8 +13,11 @@ def connect_database():
 def close_connection(conexao):
     conexao.close()
 
-def fetch_data(conexao):
+def fetch_data(conexao, mysql_txt, null=None):
     cursor = conexao.cursor()
-    cursor.execute('SELECT * FROM estoque')
+    if mysql == null:
+        cursor.execute('SELECT * FROM estoque')
+    else:
+        cursor.execute(mysql_txt)
     resultados = cursor.fetchall()
     return resultados
