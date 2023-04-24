@@ -92,7 +92,15 @@ def open_window_2():
         else:
             return False
 
-    button_close = tk.Button(window, text="Fechar", command=window.destroy)
+  #  button_close = tk.Button(window, text="Fechar", command=window.destroy)
+
+    def close_window():
+        global linha_id
+        linha_id = 0
+        window.destroy()
+
+    button_close = tk.Button(window, text="Fechar", command=close_window)
+
     button_close.pack(side=tk.BOTTOM, pady=10)
 
 def submit_item(quantidade, valor_selecionado):
