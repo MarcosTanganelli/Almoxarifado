@@ -13,9 +13,9 @@ def connect_database():
 def close_connection(conexao):
     conexao.close()
 
-def fetch_data(conexao, mysql_txt, null=None):
+def fetch_data(conexao, mysql_txt = None):
     cursor = conexao.cursor()
-    if mysql == null:
+    if mysql is None:
         cursor.execute('SELECT * FROM estoque')
     else:
         cursor.execute(mysql_txt)
