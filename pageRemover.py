@@ -23,15 +23,16 @@ def open_window_2():
     window = tk.Toplevel()
     window.title("Remover")
     window.geometry("600x400")
+    window.grab_set()
 
-    label = tk.Label(window, text="Buscar:")
-    label.pack(padx=10, pady=10)
+    label = tk.Label(window, text="Codigo Material:")
+    label.pack()
 
     # Adicione um widget Entry e um botão "Buscar"
     entry_search = tk.Entry(window)
-    entry_search.pack(padx=10, pady=10)
+    entry_search.pack()
     button_search = tk.Button(window, text="Buscar", command=lambda: update_combobox_values(entry_search, combo))
-    button_search.pack(padx=10, pady=10)
+    button_search.pack()
 
     # Crie uma combobox para exibir os resultados da pesquisa
     combo = ttk.Combobox(window, state="readonly")
@@ -80,8 +81,36 @@ def open_window_2():
             entry_quantidade = tk.Entry(window, validate="key", vcmd=(window.register(validate_int), "%P"))
             entry_quantidade.pack()
             button_submit = tk.Button(window, text="Remover",
-                                      command=lambda: submit_item(entry_quantidade.get(), valor_selecionado))
+                                      command=lambda: (submit_item(entry_quantidade.get(), valor_selecionado),
+                                                       submit_saida(entry_nrochmdo.get(),entry_aatcao.get(),
+                                                                    entry_tecnico.get(), entry_descricao.get(), valor_selecionado)))
             button_submit.pack()
+
+            label = tk.Label(window, text="Configuração de saida", pady = 10, padx = 10)
+            label.pack()
+
+            label = tk.Label(window, text="Numero Chamado:")
+            label.pack()
+            entry_nrochmdo = tk.Entry(window)
+            entry_nrochmdo.pack()
+
+            label = tk.Label(window, text="Area Atuação:")
+            label.pack()
+            entry_aatcao = tk.Entry(window)
+            entry_aatcao.pack()
+
+            label = tk.Label(window, text="Tecnico:")
+            label.pack()
+            entry_tecnico = tk.Entry(window)
+            entry_tecnico.pack()
+
+            label = tk.Label(window, text="Descrição:")
+            label.pack()
+            entry_descricao = tk.Entry(window)
+            entry_descricao.pack()
+
+
+
         linha_id += 1
 
     # Adicione o evento à combobox
@@ -112,5 +141,18 @@ def submit_item(quantidade, valor_selecionado):
         conexao.commit()
         close_connection(conexao)
         messagebox.showinfo("Remoção bem sucedida", "Item removido com sucesso!")
+    except Exception as e:
+        messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")
+#entry_nrochmdo.get(),entry_aatcao.get(),entry_tecnico.get(), entry_descricao.get()
+def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
+    try:
+        conexao = connect_database()
+        cursor = conexao.cursor()
+        sql = f"insert into saida values "
+        sql = "INSERT INTO saida (chamado_id, tecnico, material, area_atuacao, data, codigo) VALUES (%s, %s, %s, %s, %s, %s)"
+        values = (nro_chamado, tecnico, descricao, aatcao, "now()", valor_selecionado)
+        cursor.execute(sql)
+        conexao.commit()
+        close_connection(conexao)
     except Exception as e:
         messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")

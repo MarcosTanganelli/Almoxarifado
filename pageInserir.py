@@ -2,17 +2,13 @@ import tkinter as tk
 from tkinter import messagebox
 
 from database_functions import connect_database, close_connection, fetch_data
+
+
 def open_window_1():
     window = tk.Toplevel()
     window.title("Inserir")
     window.geometry("500x500")
-
-    # Crie os rótulos e campos de entrada para o código do material, material, local, unidade e saldo
-    def validate_int(input):
-        if input.isdigit():
-            return True
-        else:
-            return False
+    window.grab_set()
 
     label_codigo = tk.Label(window, text="Código do material:")
     label_codigo.pack()
@@ -36,13 +32,18 @@ def open_window_1():
 
     label_saldo = tk.Label(window, text="Saldo:")
     label_saldo.pack()
-    entry_saldo = tk.Entry(window, validate="key",  vcmd=(window.register(validate_int), "%P"))
+    entry_saldo = tk.Entry(window)
     entry_saldo.pack()
 
     # Crie o botão de submissão
     button_submit = tk.Button(window, text="Inserir",
-                              command=lambda: submit_item(entry_codigo.get(), entry_material.get(), entry_local.get(),
-                                                          entry_unidade.get(), entry_saldo.get()))
+                              command=lambda: (submit_item(
+                                  entry_codigo.get(), entry_material.get(), entry_local.get(),
+                                  entry_unidade.get(), entry_saldo.get()
+                              ),
+                                               entry_codigo.delete(0, tk.END), entry_material.delete(0, tk.END),
+                                               entry_local.delete(0, tk.END), entry_unidade.delete(0, tk.END),
+                                               entry_saldo.delete(0, tk.END)))
     button_submit.pack()
 
     # Crie o botão de fechar
@@ -50,9 +51,7 @@ def open_window_1():
     button_close.pack()
 
 
-
 def submit_item(codigo, material, local, unidade, saldo):
-    #print(f"Código: {codigo}\nMaterial: {material}\nLocal: {local}\nUnidade: {unidade}\nSaldo: {saldo}")
     try:
         conexao = connect_database()
         cursor = conexao.cursor()

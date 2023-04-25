@@ -1,7 +1,9 @@
+from tkinter import messagebox
+
 import mysql.connector
 import openpyxl
 from openpyxl.worksheet.table import TableStyleInfo
-
+from pymongo.mongo_client import MongoClient
 import config
 from sqlalchemy import create_engine
 import pandas as pd
@@ -14,6 +16,7 @@ def connect_database():
         database=config.DB_NAME
     )
     return conexao
+
 
 def close_connection(conexao):
     conexao.close()
@@ -36,6 +39,3 @@ def tabela_excel():
     df = pd.DataFrame(resultados, columns=cursor.column_names)
     # Exportar o DataFrame para um arquivo Excel
     df.to_excel('firtsteste.xlsx', index=False)
-
-
-
