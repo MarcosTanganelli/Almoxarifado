@@ -16,7 +16,7 @@ def open_window_1():
 
     label_codigo = tk.Label(window, text="Código do material:")
     label_codigo.pack()
-    entry_codigo = tk.Entry(window, validate="key", vcmd=(window.register(validate_int), "%P"))
+    entry_codigo = tk.Entry(window)
     entry_codigo.pack()
 
     label_material = tk.Label(window, text="Material:")

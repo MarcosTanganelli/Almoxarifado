@@ -1,4 +1,6 @@
 import tkinter as tk
+
+import database_functions
 import pageRemover
 import pageInserir
 
@@ -17,6 +19,9 @@ def main():
 
     button_2 = tk.Button(janela, text="Remover Item", width=10, height=1, command=pageRemover.open_window_2)
     button_2.place(x=128, y=20)
+
+    button_3 = tk.Button(janela, text="Excel", width=10, height=1, command=database_functions.tabela_excel)
+    button_3.place(x=150, y=200)
     # Inicie o loop principal da interface
     janela.mainloop()
 
