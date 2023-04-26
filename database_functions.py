@@ -8,6 +8,7 @@ import config
 from sqlalchemy import create_engine
 import pandas as pd
 
+
 def connect_database():
     conexao = mysql.connector.connect(
         host=config.DB_HOST,
@@ -21,6 +22,7 @@ def connect_database():
 def close_connection(conexao):
     conexao.close()
 
+
 def fetch_data(conexao, mysql_txt = None):
     cursor = conexao.cursor()
     if mysql is None:
@@ -29,6 +31,7 @@ def fetch_data(conexao, mysql_txt = None):
         cursor.execute(mysql_txt)
     resultados = cursor.fetchall()
     return resultados
+
 
 def tabela_excel():
     conexao = connect_database()

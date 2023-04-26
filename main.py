@@ -16,9 +16,9 @@ def main():
     espaco_entre_botoes = 20
 
     # escolha cores de contraste para tornar os botões mais fáceis de identificar
-    cor_botao_1 = "#66CCCC"
+    cor_botao_1 = "#66CC66"
     cor_botao_2 = "#CC6666"
-    cor_botao_3 = "#66CC66"
+    cor_botao_3 = "#66CCCC"
 
     # adicione botões com ícones ou texto
     button_1 = tk.Button(janela, text="Inserir Item", font=fonte_padrao, bg=cor_botao_1, width=20, height=2,

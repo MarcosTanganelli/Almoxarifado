@@ -5,6 +5,7 @@ from database_functions import connect_database, close_connection, fetch_data
 
 linha_id = 0
 
+
 def update_combobox_values(entry_search, combo):
     global selected_option
     # Obtenha o texto digitado na Entry
@@ -24,7 +25,6 @@ def open_window_2():
     window.title("Remover")
     window.geometry("800x600")
     window.grab_set()
-
 
     label_codigo = tk.Label(window, text="Código de Material:", font=("Arial", 12), pady=10, padx=10)
     label_codigo.pack()
@@ -77,11 +77,10 @@ def open_window_2():
         conn = connect_database()
         result = fetch_data(conn, f"SELECT * FROM estoque WHERE cod_mat = '{valor_selecionado}' ")
         close_connection(conn)
-        tabela.insert(parent='', index='end', text='', iid = linha_id, values=(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4]))
+        tabela.insert(parent='', index='end', text='', iid=linha_id,
+                      values=(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4]))
         tabela.pack()
         if linha_id == 0:
-
-
             label_saida = tk.Label(window, text="Configuração de Saída", font=("Arial", 14), pady=10, padx=10)
             label_saida.pack()
 
@@ -124,23 +123,25 @@ def open_window_2():
             entry_quantidade = tk.Entry(frame_quantidade, font=("Arial", 12))
             entry_quantidade.pack(side=tk.LEFT)
 
-            button_submit = tk.Button(window, text="Remover", bg ="#CC6666", font = ("Arial", 14),
+            button_submit = tk.Button(window, text="Remover", bg="#CC6666", font=("Arial", 14),
                                       command=lambda: (submit_item(entry_quantidade.get(), valor_selecionado),
-                                                       submit_saida(entry_nrochmdo.get(),entry_aatcao.get(),
-                                                                    entry_tecnico.get(), entry_descricao.get(), valor_selecionado)))
+                                                       submit_saida(entry_nrochmdo.get(), entry_aatcao.get(),
+                                                                    entry_tecnico.get(), entry_descricao.get(),
+                                                                    valor_selecionado)))
             button_submit.pack()
 
         linha_id += 1
 
     # Adicione o evento à combobox
     combo.bind('<<ComboboxSelected>>', exibir_tabela)
+
     def validate_int(input):
         if input.isdigit():
             return True
         else:
             return False
 
-  #  button_close = tk.Button(window, text="Fechar", command=window.destroy)
+    #  button_close = tk.Button(window, text="Fechar", command=window.destroy)
 
     def close_window():
         global linha_id
@@ -150,6 +151,7 @@ def open_window_2():
     button_close = tk.Button(window, text="Fechar", command=close_window)
 
     button_close.pack(side=tk.BOTTOM, pady=10)
+
 
 def submit_item(quantidade, valor_selecionado):
     try:
@@ -162,7 +164,8 @@ def submit_item(quantidade, valor_selecionado):
         messagebox.showinfo("Remoção bem sucedida", "Item removido com sucesso!")
     except Exception as e:
         messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")
-#entry_nrochmdo.get(),entry_aatcao.get(),entry_tecnico.get(), entry_descricao.get()
+
+
 def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
     try:
         conexao = connect_database()
