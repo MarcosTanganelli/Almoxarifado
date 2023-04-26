@@ -2,6 +2,7 @@ import tkinter as tk
 import database_functions
 import pageRemover
 import pageInserir
+import pageExcel
 
 
 def main():
@@ -30,7 +31,7 @@ def main():
     button_2.place(x=170, y=100 + espaco_entre_botoes)
 
     button_3 = tk.Button(janela, text="Exportar para Excel", font=fonte_padrao, bg=cor_botao_3, width=20, height=2,
-                         command=database_functions.tabela_excel)
+                         command=pageExcel.open_window_3)
     button_3.place(x=170, y=150 + 2 * espaco_entre_botoes)
 
     janela.mainloop()

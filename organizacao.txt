@@ -1,0 +1,9 @@
+fazer pagina  haverá dois espaços nessa pagina
+2°Outro será para modificar tanto o estoque em geral e ver quanto a saida
+4 BOTÕES:
+1° GERAR ESTOQUE COM TODOS ELEMENTOS
+2° MODIFICAR ELEMENTOS ATRAVÉS DO EXCEL EM ESTOQUE
+3° GERAR SAIDA COM TODOS ELEMENTOS
+4° MODIFICAR ELEMENTOS ATRAVÉS DO EXCEL EM SAIDA
+
+*** Perguntar sobre data, usar NOW() ou data selecionada

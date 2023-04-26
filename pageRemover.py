@@ -122,12 +122,11 @@ def open_window_2():
             label_quantidade.pack(side=tk.LEFT)
             entry_quantidade = tk.Entry(frame_quantidade, font=("Arial", 12))
             entry_quantidade.pack(side=tk.LEFT)
-
             button_submit = tk.Button(window, text="Remover", bg="#CC6666", font=("Arial", 14),
-                                      command=lambda: (submit_item(entry_quantidade.get(), valor_selecionado),
-                                                       submit_saida(entry_nrochmdo.get(), entry_aatcao.get(),
-                                                                    entry_tecnico.get(), entry_descricao.get(),
-                                                                    valor_selecionado)))
+                                      command=lambda: button_submit_callback(entry_nrochmdo.get(), entry_aatcao.get(),
+                                                                             entry_tecnico.get(), entry_descricao.get(),
+                                                                             valor_selecionado, entry_quantidade.get()))
+
             button_submit.pack()
 
         linha_id += 1
@@ -172,9 +171,17 @@ def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
         cursor = conexao.cursor()
 
         sql = f"INSERT INTO saida (chamado_id, tecnico, material, area_atuacao, data, codigo) " \
-              f"VALUES ({nro_chamado}, {tecnico}, {descricao}, {aatcao}, NOW(), {valor_selecionado})"
+              f"VALUES ({nro_chamado}, '{tecnico}', '{descricao}', '{aatcao}', NOW(), {valor_selecionado})"
         cursor.execute(sql)
         conexao.commit()
         close_connection(conexao)
     except Exception as e:
         messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")
+
+def button_submit_callback(entry_nrochmdo, entry_aatcao, entry_tecnico, entry_descricao,valor_selecionado, entry_quantidade):
+    try:
+        submit_saida(entry_nrochmdo, entry_aatcao, entry_tecnico,
+                     entry_descricao, valor_selecionado)
+        submit_item(entry_quantidade, valor_selecionado)
+    except Exception as e:
+        messagebox.showerror("Erro", f"Ocorreu um erro: {e}")
