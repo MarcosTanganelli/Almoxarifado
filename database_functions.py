@@ -3,7 +3,7 @@ from tkinter import messagebox
 import mysql.connector
 import openpyxl
 from openpyxl.worksheet.table import TableStyleInfo
-from pymongo.mongo_client import MongoClient
+
 import config
 from sqlalchemy import create_engine
 import pandas as pd

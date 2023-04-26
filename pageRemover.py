@@ -22,20 +22,24 @@ def update_combobox_values(entry_search, combo):
 def open_window_2():
     window = tk.Toplevel()
     window.title("Remover")
-    window.geometry("600x400")
+    window.geometry("800x600")
     window.grab_set()
 
-    label = tk.Label(window, text="Codigo Material:")
-    label.pack()
 
-    # Adicione um widget Entry e um botão "Buscar"
-    entry_search = tk.Entry(window)
-    entry_search.pack()
-    button_search = tk.Button(window, text="Buscar", command=lambda: update_combobox_values(entry_search, combo))
-    button_search.pack()
+    label_codigo = tk.Label(window, text="Código de Material:", font=("Arial", 12), pady=10, padx=10)
+    label_codigo.pack()
 
-    # Crie uma combobox para exibir os resultados da pesquisa
-    combo = ttk.Combobox(window, state="readonly")
+    # Criar o quadro para o campo de pesquisa e botão "Buscar"
+    frame_search = tk.Frame(window)
+    frame_search.pack(pady=5)
+    entry_search = tk.Entry(frame_search, font=("Arial", 12), width=20)
+    entry_search.pack(side=tk.LEFT)
+    button_search = tk.Button(frame_search, text="Buscar", font=("Arial", 12),
+                              command=lambda: update_combobox_values(entry_search, combo))
+    button_search.pack(side=tk.LEFT, padx=5)
+
+    # Criar a combobox para exibir os resultados da pesquisa
+    combo = ttk.Combobox(window, state="readonly", font=("Arial", 12), width=30)
     combo.pack(padx=10, pady=10)
 
     # Conecte-se ao banco de dados
@@ -53,7 +57,7 @@ def open_window_2():
     tabela['columns'] = ('Codigo Material', 'Material', 'Local', 'Unidade', 'Saldo')
     tabela.column('#0', width=0, stretch=tk.NO)
     tabela.column('Codigo Material', anchor=tk.CENTER, width=100)
-    tabela.column('Material', anchor=tk.CENTER, width=100)
+    tabela.column('Material', anchor=tk.CENTER, width=300)
     tabela.column('Local', anchor=tk.CENTER, width=100)
     tabela.column('Unidade', anchor=tk.CENTER, width=100)
     tabela.column('Saldo', anchor=tk.CENTER, width=100)
@@ -76,40 +80,55 @@ def open_window_2():
         tabela.insert(parent='', index='end', text='', iid = linha_id, values=(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4]))
         tabela.pack()
         if linha_id == 0:
-            label_quantidade = tk.Label(window, text="Quantidade:")
-            label_quantidade.pack()
-            entry_quantidade = tk.Entry(window, validate="key", vcmd=(window.register(validate_int), "%P"))
-            entry_quantidade.pack()
-            button_submit = tk.Button(window, text="Remover",
+
+
+            label_saida = tk.Label(window, text="Configuração de Saída", font=("Arial", 14), pady=10, padx=10)
+            label_saida.pack()
+
+            # Criar o rótulo e campo para "Número Chamado"
+            frame_nrochmdo = tk.Frame(window)
+            frame_nrochmdo.pack(pady=5)
+            label_nrochmdo = tk.Label(frame_nrochmdo, text="Número Chamado:", font=("Arial", 12), width=15)
+            label_nrochmdo.pack(side=tk.LEFT)
+            entry_nrochmdo = tk.Entry(frame_nrochmdo, font=("Arial", 12))
+            entry_nrochmdo.pack(side=tk.LEFT)
+
+            # Criar o rótulo e campo para "Área de Atuação"
+            frame_aatcao = tk.Frame(window)
+            frame_aatcao.pack(pady=5)
+            label_aatcao = tk.Label(frame_aatcao, text="Área de Atuação:", font=("Arial", 12), width=15)
+            label_aatcao.pack(side=tk.LEFT)
+            entry_aatcao = tk.Entry(frame_aatcao, font=("Arial", 12))
+            entry_aatcao.pack(side=tk.LEFT)
+
+            # Criar o rótulo e campo para "Técnico"
+            frame_tecnico = tk.Frame(window)
+            frame_tecnico.pack(pady=5)
+            label_tecnico = tk.Label(frame_tecnico, text="Técnico:", font=("Arial", 12), width=15)
+            label_tecnico.pack(side=tk.LEFT)
+            entry_tecnico = tk.Entry(frame_tecnico, font=("Arial", 12))
+            entry_tecnico.pack(side=tk.LEFT)
+
+            # Criar o rótulo e campo para "Descrição"
+            frame_descricao = tk.Frame(window)
+            frame_descricao.pack(pady=5)
+            label_descricao = tk.Label(frame_descricao, text="Descrição:", font=("Arial", 12), width=15)
+            label_descricao.pack(side=tk.LEFT)
+            entry_descricao = tk.Entry(frame_descricao, font=("Arial", 12))
+            entry_descricao.pack(side=tk.LEFT)
+
+            frame_quantidade = tk.Frame(window)
+            frame_quantidade.pack(pady=5)
+            label_quantidade = tk.Label(frame_quantidade, text="Quantidade:", font=("Arial", 12), width=15)
+            label_quantidade.pack(side=tk.LEFT)
+            entry_quantidade = tk.Entry(frame_quantidade, font=("Arial", 12))
+            entry_quantidade.pack(side=tk.LEFT)
+
+            button_submit = tk.Button(window, text="Remover", bg ="#CC6666", font = ("Arial", 14),
                                       command=lambda: (submit_item(entry_quantidade.get(), valor_selecionado),
                                                        submit_saida(entry_nrochmdo.get(),entry_aatcao.get(),
                                                                     entry_tecnico.get(), entry_descricao.get(), valor_selecionado)))
             button_submit.pack()
-
-            label = tk.Label(window, text="Configuração de saida", pady = 10, padx = 10)
-            label.pack()
-
-            label = tk.Label(window, text="Numero Chamado:")
-            label.pack()
-            entry_nrochmdo = tk.Entry(window)
-            entry_nrochmdo.pack()
-
-            label = tk.Label(window, text="Area Atuação:")
-            label.pack()
-            entry_aatcao = tk.Entry(window)
-            entry_aatcao.pack()
-
-            label = tk.Label(window, text="Tecnico:")
-            label.pack()
-            entry_tecnico = tk.Entry(window)
-            entry_tecnico.pack()
-
-            label = tk.Label(window, text="Descrição:")
-            label.pack()
-            entry_descricao = tk.Entry(window)
-            entry_descricao.pack()
-
-
 
         linha_id += 1
 
@@ -136,7 +155,7 @@ def submit_item(quantidade, valor_selecionado):
     try:
         conexao = connect_database()
         cursor = conexao.cursor()
-        sql = f"UPDATE estoque SET saldo = saldo - {quantidade} WHERE cod_mat = {valor_selecionado}"
+        sql = f"UPDATE estoque SET saldo = saldo - {quantidade} WHERE cod_mat = '{valor_selecionado}'"
         cursor.execute(sql)
         conexao.commit()
         close_connection(conexao)
@@ -148,9 +167,9 @@ def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
     try:
         conexao = connect_database()
         cursor = conexao.cursor()
-        sql = f"insert into saida values "
-        sql = "INSERT INTO saida (chamado_id, tecnico, material, area_atuacao, data, codigo) VALUES (%s, %s, %s, %s, %s, %s)"
-        values = (nro_chamado, tecnico, descricao, aatcao, "now()", valor_selecionado)
+
+        sql = f"INSERT INTO saida (chamado_id, tecnico, material, area_atuacao, data, codigo) " \
+              f"VALUES ({nro_chamado}, {tecnico}, {descricao}, {aatcao}, NOW(), {valor_selecionado})"
         cursor.execute(sql)
         conexao.commit()
         close_connection(conexao)

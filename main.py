@@ -1,5 +1,4 @@
 import tkinter as tk
-
 import database_functions
 import pageRemover
 import pageInserir
@@ -21,29 +20,21 @@ def main():
     cor_botao_2 = "#CC6666"
     cor_botao_3 = "#66CC66"
 
-    # adicione um logotipo ou imagem de fundo
-    # ...
-
-    # crie a barra de menu
-    #menu_bar = tk.Menu(janela)
-    #menu_bar.add_command(label="Abrir")
-    #menu_bar.add_command(label="Salvar")
-    #janela.config(menu=menu_bar)
-
     # adicione botões com ícones ou texto
     button_1 = tk.Button(janela, text="Inserir Item", font=fonte_padrao, bg=cor_botao_1, width=20, height=2,
                          command=pageInserir.open_window_1)
-    button_1.place(x=50, y=50)
+    button_1.place(x=170, y=50)
 
     button_2 = tk.Button(janela, text="Remover Item", font=fonte_padrao, bg=cor_botao_2, width=20, height=2,
                          command=pageRemover.open_window_2)
-    button_2.place(x=50, y=100 + espaco_entre_botoes)
+    button_2.place(x=170, y=100 + espaco_entre_botoes)
 
     button_3 = tk.Button(janela, text="Exportar para Excel", font=fonte_padrao, bg=cor_botao_3, width=20, height=2,
                          command=database_functions.tabela_excel)
-    button_3.place(x=50, y=150 + 2 * espaco_entre_botoes)
+    button_3.place(x=170, y=150 + 2 * espaco_entre_botoes)
 
     janela.mainloop()
+
 
 if __name__ == "__main__":
     main()
