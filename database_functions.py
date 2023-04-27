@@ -1,5 +1,6 @@
 from tkinter import messagebox
-
+import pymysql
+from pymysql.converters import escape_string
 import mysql.connector
 import openpyxl
 from openpyxl.worksheet.table import TableStyleInfo
@@ -7,7 +8,9 @@ from tkinter import filedialog
 import config
 from sqlalchemy import create_engine
 import pandas as pd
-
+import numpy as np
+from openpyxl.utils.dataframe import dataframe_to_rows
+from openpyxl import Workbook
 
 def connect_database():
     conexao = mysql.connector.connect(
@@ -49,6 +52,63 @@ def tabela_excel(txt):
         messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
 
 
+def atualizar_banco_excel():
+    try:
+        conexao = connect_database()
+        cursor = conexao.cursor()
+
+        filetypes = [("Arquivos Excel", "*.xlsx")]
+        file_path = filedialog.askopenfilename(filetypes=filetypes)
+        if file_path is None:
+            messagebox.showerror("Erro", "Nenhum arquivo selecionado.")
+            return
+
+        dados_excel = pd.read_excel(file_path)
+        # Loop através dos dados e inserir no banco de dados MySQL
+        for index, row in dados_excel.iterrows():
+            for col in dados_excel.columns:
+                if pd.isna(row[col]):
+                    row[col] = 0
+            material = escape_string(row['material'])
+            sql = f"UPDATE estoque SET material = '{material}', local = '{row['local']}', unidade = '{row['unidade']}', saldo = {row['saldo']} WHERE cod_mat = '{row['cod_mat']}'"
+            cursor.execute(sql)
+        # Confirmar as mudanças no banco de dados MySQL
+        conexao.commit()
+        # Fechar a conexão com o banco de dados MySQL
+        cursor.close()
+        conexao.close()
+        messagebox.showinfo("Sucesso", f"Banco de dados alterado com sucesso")
+    except Exception as e:
+        messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
+
+
+def atualizar_banco_saida_excel():
+    try:
+        conexao = connect_database()
+        cursor = conexao.cursor()
+
+        filetypes = [("Arquivos Excel", "*.xlsx")]
+        file_path = filedialog.askopenfilename(filetypes=filetypes)
+        if file_path is None:
+            messagebox.showerror("Erro", "Nenhum arquivo selecionado.")
+            return
+
+        dados_excel = pd.read_excel(file_path)
+        # Loop através dos dados e inserir no banco de dados MySQL
+        for index, row in dados_excel.iterrows():
+            for col in dados_excel.columns:
+                if pd.isna(row[col]):
+                    row[col] = 0  #	area_atuacao	tecnico	material	codigo	data
+            sql = f"UPDATE saida SET area_atuacao = '{row['area_atuacao']}', tecnico = '{row['tecnico']}', material = '{row['material']}', chamado_id = {row['chamado_id']}, data = '{row['data']}' WHERE codigo = '{row['codigo']}'"
+            cursor.execute(sql)
+        # Confirmar as mudanças no banco de dados MySQL
+        conexao.commit()
+        # Fechar a conexão com o banco de dados MySQL
+        cursor.close()
+        conexao.close()
+        messagebox.showinfo("Sucesso", f"Banco de dados alterado com sucesso")
+    except Exception as e:
+        messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
 def inserir_banco_excel():
     try:
         conexao = connect_database()
@@ -63,9 +123,12 @@ def inserir_banco_excel():
         dados_excel = pd.read_excel(file_path)
         # Loop através dos dados e inserir no banco de dados MySQL
         for index, row in dados_excel.iterrows():
-            query = "INSERT IGNORE INTO estoque (cod_mat, material, local, unidade, saldo) VALUES (%s, %s, %s, %s, %s)"
-            valores = (row['cod_mat'], row['material'], row['local'], row['unidade'], row['saldo'])
-            cursor.execute(query, valores)
+            for col in dados_excel.columns:
+                if pd.isna(row[col]):
+                    row[col] = 0
+            material = escape_string(row['material'])
+            sql = f"INSERT IGNORE INTO estoque (cod_mat, material, local, unidade, saldo) VALUES ('{row['cod_mat']}','{material}', '{row['local']}', '{row['unidade']}', {row['saldo']})"
+            cursor.execute(sql)
         # Confirmar as mudanças no banco de dados MySQL
         conexao.commit()
         # Fechar a conexão com o banco de dados MySQL
@@ -74,5 +137,4 @@ def inserir_banco_excel():
         messagebox.showinfo("Sucesso", f"Banco de dados alterado com sucesso")
     except Exception as e:
         messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
-
 

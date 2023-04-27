@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
+import database_functions
 from database_functions import connect_database, close_connection, fetch_data
 
 
@@ -46,13 +47,18 @@ def open_window_1():
     button_frame.pack(fill=tk.BOTH, expand=True)
 
     # Create the submit and close buttons
-    button_submit = tk.Button(button_frame, text="Inserir", bg="#007FFF", fg="white",
+    button_submit = tk.Button(button_frame, text="Inserir", bg="#66CC66", fg="white",
                               command=lambda: (submit_item(entry_codigo.get().strip(), entry_material.get(), entry_local.get(),
                                                            entry_unidade.get(), entry_saldo.get()),
                                                entry_codigo.delete(0, tk.END), entry_material.delete(0, tk.END),
                                                entry_local.delete(0, tk.END), entry_unidade.delete(0, tk.END),
                                                entry_saldo.delete(0, tk.END)))
     button_submit.pack(padx=5, pady=5)
+
+    button_submit_excel = tk.Button(button_frame, text="Inserir com Excel", bg="#007FFF", fg="white",
+                              command=lambda: (database_functions.inserir_banco_excel()
+                              ))
+    button_submit_excel.pack(padx=5, pady=5)
 
     button_close = tk.Button(button_frame, text="Fechar", bg="#DC143C", fg="white", command=window.destroy)
     button_close.pack(side=tk.RIGHT, padx=5, pady=5)

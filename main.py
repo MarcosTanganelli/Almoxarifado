@@ -30,7 +30,7 @@ def main():
                          command=pageRemover.open_window_2)
     button_2.place(x=170, y=100 + espaco_entre_botoes)
 
-    button_3 = tk.Button(janela, text="Exportar para Excel", font=fonte_padrao, bg=cor_botao_3, width=20, height=2,
+    button_3 = tk.Button(janela, text="Excel", font=fonte_padrao, bg=cor_botao_3, width=20, height=2,
                          command=pageExcel.open_window_3)
     button_3.place(x=170, y=150 + 2 * espaco_entre_botoes)
 
