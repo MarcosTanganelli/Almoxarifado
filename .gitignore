@@ -1,1 +1,8 @@
 config.py
+.idea/
+build/
+__pycache__/
+dist/Almoxarifado/
+Almoxarifado.spec
+main.spec
+venv/

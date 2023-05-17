@@ -1,16 +1,10 @@
 from tkinter import messagebox
-import pymysql
 from pymysql.converters import escape_string
 import mysql.connector
-import openpyxl
-from openpyxl.worksheet.table import TableStyleInfo
 from tkinter import filedialog
 import config
-from sqlalchemy import create_engine
 import pandas as pd
-import numpy as np
-from openpyxl.utils.dataframe import dataframe_to_rows
-from openpyxl import Workbook
+
 
 def connect_database():
     conexao = mysql.connector.connect(
