@@ -11,7 +11,7 @@ def open_window_1():
     window.geometry("500x400")
     window.resizable(False, False)
     window.grab_set()
-    window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/1434728.ico")
+    # window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/1434728.ico")
 
     # Create a container frame to organize the input fields
     input_frame = tk.Frame(window, padx=20, pady=10)

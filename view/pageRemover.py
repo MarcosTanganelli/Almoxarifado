@@ -19,13 +19,12 @@ def update_combobox_values(entry_search, combo):
     # Atualize os valores da combobox com base nos resultados da pesquisa
     combo['values'] = result
 
-
 def open_window_2():
     window = tk.Toplevel()
     window.title("Remover")
     window.geometry("800x600")
     window.grab_set()
-    window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/1434728.ico")
+    # window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/1434728.ico")
 
     label_codigo = tk.Label(window, text="Código de Material:", font=("Arial", 12), pady=10, padx=10)
     label_codigo.pack()
@@ -155,7 +154,6 @@ def open_window_2():
 
     button_close.pack(side=tk.BOTTOM, pady=10)
 
-
 def submit_item(quantidade, valor_selecionado):
     try:
         conexao = connect_database()
@@ -167,7 +165,6 @@ def submit_item(quantidade, valor_selecionado):
         messagebox.showinfo("Remoção bem sucedida", "Item removido com sucesso!")
     except Exception as e:
         messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")
-
 
 def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
     try:

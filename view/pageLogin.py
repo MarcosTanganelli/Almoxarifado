@@ -7,7 +7,7 @@ def open_window_login():
     window.title("Login")
     window.geometry("200x200")
     window.grab_set()
-    window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/perfil.ico")
+    # window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/perfil.ico")
 
     # Labels
     label_username = tk.Label(window, text="Usuário:")
@@ -25,7 +25,6 @@ def open_window_login():
 
     button_login = tk.Button(window, text="Acessar", command=lambda: realizar_login(entry_username, entry_password, label_resultado, window))
     button_login.pack()
-
 
 def realizar_login(entry_username, entry_password, label_resultado, window):
     # Conectar ao banco de dados

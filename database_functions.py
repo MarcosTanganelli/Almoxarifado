@@ -15,10 +15,8 @@ def connect_database():
     )
     return conexao
 
-
 def close_connection(conexao):
     conexao.close()
-
 
 def fetch_data(conexao, mysql_txt = None):
     cursor = conexao.cursor()
@@ -28,7 +26,6 @@ def fetch_data(conexao, mysql_txt = None):
         cursor.execute(mysql_txt)
     resultados = cursor.fetchall()
     return resultados
-
 
 def tabela_excel(txt):
     try:
@@ -44,7 +41,6 @@ def tabela_excel(txt):
         messagebox.showinfo("Sucesso", f"Arquivo  salvo com sucesso!")
     except Exception as e:
         messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
-
 
 def atualizar_banco_excel():
     try:
@@ -75,7 +71,6 @@ def atualizar_banco_excel():
     except Exception as e:
         messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
 
-
 def atualizar_banco_saida_excel():
     try:
         conexao = connect_database()
@@ -103,6 +98,7 @@ def atualizar_banco_saida_excel():
         messagebox.showinfo("Sucesso", f"Banco de dados alterado com sucesso")
     except Exception as e:
         messagebox.showerror("Erro", f"Não foi possível gerar o arquivo: {str(e)}")
+        
 def inserir_banco_excel():
     try:
         conexao = connect_database()
@@ -121,7 +117,8 @@ def inserir_banco_excel():
                 if pd.isna(row[col]):
                     row[col] = 0
             material = escape_string(row['material'])
-            sql = f"INSERT IGNORE INTO estoque (cod_mat, material, local, unidade, saldo) VALUES ('{row['cod_mat']}','{material}', '{row['local']}', '{row['unidade']}', {row['saldo']})"
+            sql = (f"INSERT IGNORE INTO estoque (cod_mat, material, local, unidade, saldo) VALUES ('{row['cod_mat']}',"
+                   f"'{material}', '{row['local']}', '{row['unidade']}', {row['saldo']})")
             cursor.execute(sql)
         # Confirmar as mudanças no banco de dados MySQL
         conexao.commit()

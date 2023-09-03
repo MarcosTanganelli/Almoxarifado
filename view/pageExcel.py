@@ -11,7 +11,7 @@ def open_window_3():
     window.geometry("500x400")
     window.configure(bg="#F4F4F4")
     window.grab_set()
-    window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/1434728.ico")
+    # window.iconbitmap("C:/Users/Marco/Desktop/Estagio/Almoxarifado/imgs/1434728.ico")
 
     config_frame = tk.Frame(window, bg="#F4F4F4", padx=20, pady=20)
     config_frame.pack(side="left", anchor="nw")
