@@ -19,6 +19,7 @@ def update_combobox_values(entry_search, combo):
     # Atualize os valores da combobox com base nos resultados da pesquisa
     combo['values'] = result
 
+
 def open_window_2():
     window = tk.Toplevel()
     window.title("Remover")
@@ -154,6 +155,7 @@ def open_window_2():
 
     button_close.pack(side=tk.BOTTOM, pady=10)
 
+
 def submit_item(quantidade, valor_selecionado):
     try:
         conexao = connect_database()
@@ -166,6 +168,7 @@ def submit_item(quantidade, valor_selecionado):
     except Exception as e:
         messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")
 
+
 def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
     try:
         conexao = connect_database()
@@ -177,6 +180,7 @@ def submit_saida(nro_chamado, aatcao, tecnico, descricao, valor_selecionado):
         close_connection(conexao)
     except Exception as e:
         messagebox.showerror("Erro ao Remover", f"Não foi possível remover o item. Erro: {e}")
+
 
 def button_submit_callback(entry_nrochmdo, entry_aatcao, entry_tecnico, entry_descricao,valor_selecionado, entry_quantidade):
     try:
