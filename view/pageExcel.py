@@ -56,17 +56,4 @@ def open_window_3():
                                  command=lambda: tabela_excel(f"SELECT * FROM saida "))
     generate_button1.grid(row=5, column=3, pady=10)
 
-    title_label2 = tk.Label(config_frame, text="Enviar excel:", font=("Arial", 14), bg="#F4F4F4", fg="#333")
-    title_label2.grid(row=6, column=0, columnspan=2, sticky="w")
 
-    enviar_label = tk.Label(config_frame, text="Estoque:", font=("Arial", 12), bg="#F4F4F4", fg="#333")
-    enviar_label.grid(row=7, column=0, sticky="w")
-    enviar_button = tk.Button(config_frame, text="Enviar", font=("Arial", 12),
-                               command=lambda: database_functions.atualizar_banco_excel())
-    enviar_button.place(x=70,y=315)
-
-    enviar_label1 = tk.Label(config_frame, text="Saída:", font=("Arial", 12), bg="#F4F4F4", fg="#333")
-    enviar_label1.grid(row=7, column=2, sticky="w")
-    enviar_button1 = tk.Button(config_frame, text="Enviar", font=("Arial", 12),
-                                command=lambda: database_functions.atualizar_banco_saida_excel())
-    enviar_button1.place(x=405,y=310)
